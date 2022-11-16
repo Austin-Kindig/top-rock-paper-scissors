@@ -1,10 +1,25 @@
 
-//3. evaluate winner
-//4. iterate 5 times
-//5. output grand winner
-
-
-
+function game() {
+    let victory = 0;
+    //iterate "playRound" five times and log who won the most
+    for (let i = 0; i < 5; i++) {
+        condition = playRound();
+        if (condition === "win") {
+            victory++;
+        }
+        if (condition === "lose") {
+            victory--;
+        }
+    }
+    if (victory > 0) {
+        console.log("You win!");
+    }
+    if (victory < 0) {
+        console.log("You lose!");
+    } else {
+        console.log("tie!");
+    }
+};
 
 //get and return player selection
 function playerSelection() {
@@ -18,7 +33,7 @@ function playerSelection() {
      //output selection
      return choice;
 };
-
+//check player input against computer selection to determine round's winner
 function playRound() {
     let player = playerSelection();
     let computer = getComputerChoice();
