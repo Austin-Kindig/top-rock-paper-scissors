@@ -1,5 +1,56 @@
+var victory = 0;
 
-function game() {
+//index.html edits
+//create, format, and insert rock selection button
+const rock = document.querySelector('#rock');
+const rockButton = document.createElement('button');
+rockButton.classList.add('rockButton');
+rockButton.textContent = "Rock";
+rock.appendChild(rockButton);
+//connect rock button to game functionality
+rockButton.addEventListener('click', () => {
+    playRound('rock');
+    display.textContent = `Score: ${victory}`;
+});
+
+//create, format, and insert paper selection button
+const paper = document.querySelector('#paper');
+const paperButton = document.createElement('button');
+paperButton.classList.add('paperButton');
+paperButton.textContent = "Paper";
+paper.appendChild(paperButton);
+//connect rock button to game functionality
+paperButton.addEventListener('click', () => {
+    playRound('paper');
+    display.textContent = `Score: ${victory}`;
+});
+
+
+//create, format, and insert scissors selection button
+const scissors = document.querySelector('#scissors');
+const scissorsButton = document.createElement('button');
+scissorsButton.classList.add('scissorsButton');
+scissorsButton.textContent = "Scissors";
+scissors.appendChild(scissorsButton);
+//connect rock button to game functionality
+scissorsButton.addEventListener('click', () => {
+    playRound('scissors');
+    display.textContent = `Score: ${victory}`;
+});
+
+
+//create results display
+const resultDisplay = document.querySelector('body');
+const display = document.createElement('div');
+display.classList.add('display');
+//resultDisplay.appendChild(display);
+display.textContent = `Score: ${victory}`;
+resultDisplay.appendChild(display);
+
+
+
+
+/*function game() {
     let victory = 0;
     //iterate "playRound" five times and log who won the most
     for (let i = 0; i < 5; i++) {
@@ -19,7 +70,7 @@ function game() {
     } else {
         console.log("tie!");
     }
-};
+};*/
 
 //get and return player selection
 function playerSelection() {
@@ -34,9 +85,13 @@ function playerSelection() {
      return choice;
 };
 //check player input against computer selection to determine round's winner
-function playRound() {
-    let player = playerSelection();
+function playRound(player) {
+    //let player = playerSelection();
     let computer = getComputerChoice();
+    if (player === computer) {
+        alert("tie!");
+        return;
+    }
     let result = "";
     let winner = "";
     let loser = "";
@@ -54,17 +109,22 @@ function playRound() {
     }
     if (winner === computer) {
         result = "lose";
+        victory--;
     } else {
         result = "win";
         winner = player;
         loser = computer;
+        victory++;
     }
-    if (player === computer) {
-        console.log("tie!");
-        return "tie";
+    if (victory >= 5) {
+        alert ("*Congratulations! You win!*");
+        return;
     }
-    console.log(`you ${result}! ${winner} beats ${loser}.`);
-    return result;
+    if (victory <= -5) {
+        alert ("*Sorry! You lost to a computer!*");
+        return;
+    }
+    alert(`you ${result}! ${winner} beats ${loser}.`);
 };
 
 
